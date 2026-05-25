@@ -1,0 +1,11 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "A simple bar chart example.",
+  "data": {"url": "/movies.json"},
+  "mark": "bar",
+  "encoding": {
+    "x": {"field": "Major Genre", "type": "nominal"},
+    "y": {"aggregate": "count"}
+  }
+  
+}
