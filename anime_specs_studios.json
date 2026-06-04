@@ -1,0 +1,151 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A Ranked Dot Plot for Anime Studio Investment Analysis.",
+  "width": 650,
+  "height": {
+    "step": 30
+  },
+  "padding": 20,
+  "data": {
+    "url": "/anime_dataset_1990_2026.json"
+  },
+  "transform": [
+    {
+      "filter": "datum['Animation Studio'] != 'Unknown' && datum['Animation Studio'] != null"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "count",
+          "as": "Total Releases"
+        },
+        {
+          "op": "mean",
+          "field": "Popularity",
+          "as": "Average Audience Reach"
+        },
+        {
+          "op": "mean",
+          "field": "Average Rating",
+          "as": "Average Quality Score"
+        }
+      ],
+      "groupby": [
+        "Animation Studio"
+      ]
+    },
+    {
+      "filter": "datum['Total Releases'] >= 4"
+    },
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "Average Audience Reach",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "filter": "datum.rank <= 25"
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": "transparent"
+    },
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13,
+      "titlePadding": 10
+    }
+  },
+  "mark": {
+    "type": "circle",
+    "opacity": 0.9,
+    "stroke": "#1f2937",
+    "strokeWidth": 0.5
+  },
+  "encoding": {
+    "y": {
+      "field": "Animation Studio",
+      "type": "nominal",
+      "sort": "-x",
+      "axis": {
+        "title": null,
+        "grid": true,
+        "gridColor": "#e5e7eb",
+        "gridDash": [
+          4,
+          4
+        ]
+      }
+    },
+    "x": {
+      "field": "Average Audience Reach",
+      "type": "quantitative",
+      "axis": {
+        "title": "Market Reach (Avg. Members per Show)",
+        "format": "s",
+        "grid": false
+      }
+    },
+    "size": {
+      "field": "Total Releases",
+      "type": "quantitative",
+      "scale": {
+        "range": [
+          60,
+          500
+        ]
+      },
+      "legend": {
+        "title": "Production Volume (Shows)",
+        "clipHeight": 30
+      }
+    },
+    "color": {
+      "field": "Average Quality Score",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "tealblues",
+        "domain": [
+          7.0,
+          9.0
+        ]
+      },
+      "legend": {
+        "title": "Avg. Quality Score"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "Animation Studio",
+        "type": "nominal",
+        "title": "Studio"
+      },
+      {
+        "field": "Average Audience Reach",
+        "type": "quantitative",
+        "title": "Avg. Reach",
+        "format": ",.0f"
+      },
+      {
+        "field": "Total Releases",
+        "type": "quantitative",
+        "title": "Total Releases"
+      },
+      {
+        "field": "Average Quality Score",
+        "type": "quantitative",
+        "title": "Avg. Rating",
+        "format": ".2f"
+      }
+    ]
+  }
+}

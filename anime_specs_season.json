@@ -1,0 +1,97 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A 100% stacked bar chart showing the shift from long-running to seasonal anime.",
+  "width": 900,
+  "height": 450,
+  "background": "#1e222d",
+  "padding": 20,
+  "data": {
+    "url": "/anime_duration_dataset.json"
+  },
+  "transform": [
+    {
+      "filter": "datum.Format == 'TV' && datum['Number of Episodes'] != null"
+    },
+    {
+      "calculate": "datum['Number of Episodes'] >= 53 ? 'Continuous (53+ eps)' : (datum['Number of Episodes'] >= 29 ? 'Full Year (29-52 eps)' : (datum['Number of Episodes'] >= 15 ? '2-Cour Season (15-28 eps)' : '1-Cour Season (1-14 eps)'))",
+      "as": "Run Type"
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": "transparent"
+    },
+    "axis": {
+      "gridColor": "#363c4f",
+      "domainColor": "#363c4f",
+      "tickColor": "#363c4f",
+      "labelColor": "#a0a4b8",
+      "titleColor": "#ffffff",
+      "titlePadding": 15
+    },
+    "legend": {
+      "labelColor": "#ffffff",
+      "titleColor": "#ffffff",
+      "offset": 15
+    }
+  },
+  "mark": {
+    "type": "bar",
+    "size": 18
+  },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "axis": {
+        "title": "Year of Release",
+        "labelAngle": -45
+      }
+    },
+    "y": {
+      "aggregate": "count",
+      "type": "quantitative",
+      "stack": "normalize",
+      "axis": {
+        "title": "Percentage of Total TV Anime",
+        "format": "%"
+      }
+    },
+    "color": {
+      "field": "Run Type",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "1-Cour Season (1-14 eps)",
+          "2-Cour Season (15-28 eps)",
+          "Full Year (29-52 eps)",
+          "Continuous (53+ eps)"
+        ],
+        "range": [
+          "#4ea8de",
+          "#56cfe1",
+          "#ffb703",
+          "#d00000"
+        ]
+      },
+      "legend": {
+        "title": "Anime Run Configuration"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "Year",
+        "type": "ordinal"
+      },
+      {
+        "field": "Run Type",
+        "type": "nominal"
+      },
+      {
+        "aggregate": "count",
+        "type": "quantitative",
+        "title": "Count of Shows"
+      }
+    ]
+  }
+}

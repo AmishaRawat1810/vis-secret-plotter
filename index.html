@@ -1,58 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vega-Lite Viewer</title>
-    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-    <style>
-      body {
-        font-family: sans-serif;
-        margin: 0;
-        padding: 2rem 1rem;
-        background: #fafafa;
-        color: #222;
-      }
-      main {
-        max-width: 800px;
-        margin: 0 auto;
-      }
-      h1 {
-        font-size: 1.6rem;
-        margin-bottom: 0.25rem;
-      }
-      #vis {
-        width: 100%;
-        margin: 1.5rem 0;
-      }
-      .writeup {
-        line-height: 1.7;
-        font-size: 1rem;
-      }
-      .writeup p {
-        margin: 0 0 1rem;
-      }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>Chart title</h1>
 
-      <div id="vis"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vega-Lite Viewer</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 2rem 1rem;
+      background: #fafafa;
+      color: #222;
+    }
 
-      <section class="writeup">
-        <p>
-          Write a summary of the chart here. Describe what the data shows and
-          any key observations worth highlighting.
-        </p>
-        <p>
-          Add additional context, methodology notes, or caveats in a second
-          paragraph if needed.
-        </p>
-      </section>
-    </main>
-    <script src="render.js"></script>
-  </body>
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 0.25rem;
+    }
+
+    #vis {
+      width: 100%;
+      margin: 1.5rem 0;
+    }
+
+    .writeup {
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .writeup p {
+      margin: 0 0 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Chart title</h1>
+
+    <div id="vis"></div>
+
+    <section class="writeup">
+      <p>
+        Write a summary of the chart here. Describe what the data shows and
+        any key observations worth highlighting.
+      </p>
+      <p>
+        Add additional context, methodology notes, or caveats in a second
+        paragraph if needed.
+      </p>
+    </section>
+  </main>
+  <script src="render.js"></script>
+</body>
+
 </html>

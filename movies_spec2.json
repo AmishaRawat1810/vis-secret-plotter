@@ -1,0 +1,53 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A bar chart showing movie counts by genre, with text labels.",
+  "data": {
+    "url": "/movies.json"
+  },
+  "width": 500,
+  "transform": [
+    {
+      "sample": 200
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "Major Genre",
+      "type": "nominal",
+      "sort": "-x"
+    },
+    "x": {
+      "aggregate": "count",
+      "type": "quantitative",
+      "title": "Number of movies"
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "size": 10
+      },
+      "encoding": {
+        "color": {
+          "field": "Major Genre",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 3
+      },
+      "encoding": {
+        "text": {
+          "aggregate": "count",
+          "type": "quantitative"
+        }
+      }
+    }
+  ]
+}

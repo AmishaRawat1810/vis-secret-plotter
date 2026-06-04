@@ -1,0 +1,49 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Calculating International Gross and Profit for a sample of 200 movies.",
+  "data": {
+    "url": "/movies.json"
+  },
+  "transform": [
+    {
+      "sample": 200
+    },
+    {
+      "calculate": "datum['Worldwide Gross'] - datum['US Gross']",
+      "as": "International Gross"
+    },
+    {
+      "calculate": "datum['Worldwide Gross'] - datum['Production Budget']",
+      "as": "Profit"
+    }
+  ],
+  "mark": "point",
+  "encoding": {
+    "x": {
+      "field": "Profit",
+      "type": "quantitative",
+      "title": "Calculated Profit"
+    },
+    "y": {
+      "field": "International Gross",
+      "type": "quantitative",
+      "title": "Calculated International Gross"
+    },
+    "tooltip": [
+      {
+        "field": "Title",
+        "type": "nominal"
+      },
+      {
+        "field": "Profit",
+        "type": "quantitative",
+        "format": "$,.0f"
+      },
+      {
+        "field": "International Gross",
+        "type": "quantitative",
+        "format": "$,.0f"
+      }
+    ]
+  }
+}

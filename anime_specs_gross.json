@@ -1,0 +1,113 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Dynamic multi-line chart showing anime increase by genre over time, filterable via legend.",
+  "width": 900,
+  "height": 450,
+  "padding": 20,
+  "data": {
+    "url": "/anime_duration_dataset.json"
+  },
+  "transform": [
+    {
+      "flatten": [
+        "Genres"
+      ]
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": "transparent"
+    },
+    "axis": {
+      "gridColor": "#dcdcdc",
+      "domainColor": "#383e52",
+      "tickColor": "#f0f3ff",
+      "labelColor": "#585962",
+      "titleColor": "#acacac",
+      "titlePadding": 15
+    },
+    "legend": {
+      "labelColor": "#000000",
+      "titleColor": "#000000",
+      "symbolType": "circle"
+    }
+  },
+  "params": [
+    {
+      "name": "GenreHighlight",
+      "select": {
+        "type": "point",
+        "fields": [
+          "Genres"
+        ]
+      },
+      "bind": "legend"
+    }
+  ],
+  "mark": {
+    "type": "line",
+    "point": {
+      "filled": false,
+      "fill": "#ffffff"
+    },
+    "interpolate": "monotone"
+  },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "axis": {
+        "title": "Year of Release",
+        "labelAngle": -45
+      }
+    },
+    "y": {
+      "aggregate": "count",
+      "type": "quantitative",
+      "axis": {
+        "title": "Number of Anime Released"
+      }
+    },
+    "color": {
+      "field": "Genres",
+      "type": "nominal",
+      "scale": {
+        "scheme": "tableau20"
+      },
+      "legend": {
+        "title": "Select Genre to Highlight"
+      }
+    },
+    "opacity": {
+      "condition": {
+        "param": "GenreHighlight",
+        "empty": true,
+        "value": 1
+      },
+      "value": 0.01
+    },
+    "strokeWidth": {
+      "condition": {
+        "param": "GenreHighlight",
+        "empty": true,
+        "value": 2
+      },
+      "value": 4
+    },
+    "tooltip": [
+      {
+        "field": "Year",
+        "type": "ordinal"
+      },
+      {
+        "field": "Genres",
+        "type": "nominal"
+      },
+      {
+        "aggregate": "count",
+        "type": "quantitative",
+        "title": "Total Released"
+      }
+    ]
+  }
+}

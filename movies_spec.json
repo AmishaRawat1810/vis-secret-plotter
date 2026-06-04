@@ -1,11 +1,38 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "A simple bar chart example.",
-  "data": {"url": "/movies.json"},
-  "mark": "bar",
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A line chart showing Average IMDB Rating by Release Year.",
+  "data": {
+    "url": "/movies.json"
+  },
+  "width": 800,
+  "height": 100,
+  "mark": {
+    "type": "boxplot",
+    "size": 10
+  },
+  "transform": [
+    {
+      "sample": 4200
+    }
+  ],
   "encoding": {
-    "x": {"field": "Major Genre", "type": "nominal"},
-    "y": {"aggregate": "count"}
+    "x": {
+      "field": "Release Date",
+      "type": "temporal",
+      "timeUnit": "year",
+      "title": "Year of Release",
+      "scale": {
+        "domain": [
+          "1985",
+          "2010"
+        ],
+        "clamp": true
+      }
+    },
+    "y": {
+      "field": "IMDB Rating",
+      "type": "quantitative",
+      "title": "Average IMDB Rating"
+    }
   }
-  
 }

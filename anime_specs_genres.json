@@ -1,0 +1,190 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A dark-themed, highly readable dual-axis bar chart.",
+  "width": 900,
+  "height": 450,
+  "background": "#1e222d",
+  "padding": 20,
+  "data": {
+    "url": "/anime_duration_dataset.json"
+  },
+  "params": [
+    {
+      "name": "GenreFilter",
+      "value": "Action",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Action",
+          "Adventure",
+          "Comedy",
+          "Drama",
+          "Fantasy",
+          "Isekai",
+          "Romance",
+          "Sci-Fi",
+          "Slice of Life",
+          "Supernatural"
+        ],
+        "name": "Select Genre: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "flatten": [
+        "Genres"
+      ]
+    },
+    {
+      "filter": "datum.Genres == GenreFilter"
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": "transparent"
+    },
+    "axis": {
+      "gridColor": "#363c4f",
+      "domainColor": "#363c4f",
+      "tickColor": "#363c4f",
+      "labelColor": "#a0a4b8",
+      "titleColor": "#ffffff",
+      "titlePadding": 15
+    },
+    "text": {
+      "color": "#ffffff",
+      "fontSize": 10,
+      "fontWeight": "bold"
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "axis": {
+        "title": "Year",
+        "labelAngle": -45
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "xOffset": -6,
+        "size": 10,
+        "color": "#9b51e0",
+        "cornerRadiusTopLeft": 3,
+        "cornerRadiusTopRight": 3
+      },
+      "encoding": {
+        "y": {
+          "aggregate": "sum",
+          "field": "Total Hours",
+          "type": "quantitative",
+          "axis": {
+            "title": "Total Hours",
+            "titleColor": "#9b51e0",
+            "grid": true
+          }
+        },
+        "tooltip": [
+          {
+            "field": "Year",
+            "type": "ordinal"
+          },
+          {
+            "aggregate": "sum",
+            "field": "Total Hours",
+            "type": "quantitative",
+            "title": "Total Hours",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dy": -3,
+        "xOffset": -6,
+        "color": "#e0d4f7"
+      },
+      "encoding": {
+        "y": {
+          "aggregate": "sum",
+          "field": "Total Hours",
+          "type": "quantitative",
+          "axis": null
+        },
+        "text": {
+          "aggregate": "sum",
+          "field": "Total Hours",
+          "type": "quantitative",
+          "format": ".0f"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "xOffset": 6,
+        "size": 10,
+        "color": "#f2c94c",
+        "cornerRadiusTopLeft": 3,
+        "cornerRadiusTopRight": 3
+      },
+      "encoding": {
+        "y": {
+          "aggregate": "count",
+          "type": "quantitative",
+          "axis": {
+            "title": "Number of Entries",
+            "titleColor": "#f2c94c",
+            "grid": false
+          }
+        },
+        "tooltip": [
+          {
+            "field": "Year",
+            "type": "ordinal"
+          },
+          {
+            "aggregate": "count",
+            "type": "quantitative",
+            "title": "Number of Entries"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dy": -3,
+        "xOffset": 6,
+        "color": "#fdf3cc"
+      },
+      "encoding": {
+        "y": {
+          "aggregate": "count",
+          "type": "quantitative",
+          "axis": null
+        },
+        "text": {
+          "aggregate": "count",
+          "type": "quantitative"
+        }
+      }
+    }
+  ],
+  "resolve": {
+    "scale": {
+      "y": "independent"
+    }
+  }
+}
